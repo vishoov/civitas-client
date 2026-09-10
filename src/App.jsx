@@ -1,9 +1,13 @@
-
-
+import Navbar from "./component/navbar"
+import {Routes, Route} from "react-router-dom"
+import Home from "./pages/Home"
 const App = () => {
   return (
     <div>
-      <h1>CIVITAS Home page!!</h1>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+      </Routes>
     </div>
   )
 }
