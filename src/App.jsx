@@ -1,9 +1,10 @@
+import Navbar from "./component/navbar"
 
 
 const App = () => {
   return (
     <div>
-      <h1>CIVITAS Home page!!</h1>
+      <Navbar/>
     </div>
   )
 }
