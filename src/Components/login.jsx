@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login= ()=>{
 
@@ -16,6 +17,10 @@ const Login= ()=>{
             error: ""
         }
     );
+
+    let navigate= useNavigate();
+
+
 
 
 
@@ -39,6 +44,8 @@ const Login= ()=>{
             }
         ))
         alert("Logged In successfully")
+
+        navigate("/homepage");
     }
 
     return (
