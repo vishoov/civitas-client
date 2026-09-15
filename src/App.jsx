@@ -22,17 +22,15 @@ const App = () => {
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/login" element={<Login/>}/>
 
-
+        <Route path="/report" element={<ReportPage/>}/>
+        <Route path="/admin" element={<AdminDashboard/>}/>
+        <Route path="/" element={<Home/>}/>
       </Routes>
 
       </AuthProtected>
 
 
-      <Routes>
-        <Route path="/report" element={<ReportPage/>}/>
-        <Route path="/admin" element={<AdminDashboard/>}/>
-        <Route path="/" element={<Home/>}/>
-      </Routes>
+    
 
     </div>
   )
