@@ -1,19 +1,19 @@
-
+import {Link} from 'react-router-dom'
 const Navbar = ()=>{
 
     return(
         <div className="w-full bg-black h-15 flex justify-between py-3 px-10">
-            <div className="text-white text-4xl font-bold">Civitas</div>
+            <Link to="/" className="text-white text-4xl font-bold">Civitas</Link>
 
             <div className=" text-white gap-3 flex text-lg ">
-                <div>Home</div>
+                <Link to="/">Home</Link>
                 <div>About</div>
                 <div>Contact</div>
-                <div>Services</div>
+                <Link to="/report">Report</Link>
             </div>
 
             <div>
-                <button className="bg-white rounded-2xl p-2 w-20">Login</button>
+                <Link to="/login" className="bg-white rounded-2xl p-2 w-20  flex items-center text-center justify-center">Login</Link>
             </div>
         </div>
     )
