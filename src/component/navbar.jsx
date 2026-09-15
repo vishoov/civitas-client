@@ -5,7 +5,7 @@ const Navbar = ()=>{
         <div className="w-full bg-black h-15 flex justify-between py-3 px-10">
             <div className="text-white text-4xl font-bold">Civitas</div>
 
-            <div className=" text-white gap-3 flex">
+            <div className=" text-white gap-3 flex text-lg ">
                 <div>Home</div>
                 <div>About</div>
                 <div>Contact</div>
