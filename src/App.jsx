@@ -9,11 +9,14 @@ const App = () => {
   return (
     <div>
       <Navbar/>
-      <ReportPage/>
-      <AdminDashboard/>
+
+
       <Routes>
+        <Route path="/report" element={<ReportPage/>}/>
+        <Route path="/admin" element={<AdminDashboard/>}/>
         <Route path="/" element={<Home/>}/>
       </Routes>
+
     </div>
   )
 }
