@@ -5,7 +5,7 @@ import { AuthProtected } from "./Auth/AuthContext"
 import AdminDashboard from "./component/adminDashboard"
 import Navbar from "./component/navbar"
 import ReportPage from "./component/reportPage"
-
+import Footer from "./component/Footer"
 
 
 import Home from "./pages/Home"
@@ -23,14 +23,14 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
 
         <Route path="/report" element={<ReportPage/>}/>
-        <Route path="/admin" element={<AdminDashboard/>}/>
+        <Route path="/admin/reports" element={<AdminDashboard/>}/>
         <Route path="/" element={<Home/>}/>
       </Routes>
 
       </AuthProtected>
 
 
-    
+    <Footer />
 
     </div>
   )

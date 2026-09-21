@@ -1,101 +1,231 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthLayout, {
+  Field,
+  FormStatus,
+  SubmitButton,
+  focusRing,
+} from "./AuthLayout";
 
-const SignUp=()=>{
-     let [user, setUser]= useState(
-            {
-                email: "",
-                password: "",
-                age: ""
-            }
-        );
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        let navigate= useNavigate();
+const PANEL_POINTS = [
+  "Report a pothole, a dead streetlight or an overflowing bin in 30 seconds.",
+  "Your ward and the right department are filled in for you automatically.",
+  "Every report gets a public timeline — raised, acknowledged, assigned, resolved.",
+];
 
+const PANEL_QUOTE = {
+  quote:
+    "The public timeline is the part that changed things. Once a delay is visible, it stops being invisible.",
+  name: "Arjun Mehta",
+  role: "Civic volunteer · New Delhi",
+  avatar: "https://i.pravatar.cc/120?img=33",
+};
 
-        let [status, setStatus]= useState(
-            {
-                success: false,
-                error: ""
-            }
-        );
-   
-    
-    
-        let handleChange= (e)=>{
-            let {id, value}= e.target;
-            setUser(val=>({
-                ...val,
-                [id]:value
-            }))
-        }
-    
-        let handleSubmit= (e)=>{
-            e.preventDefault();
-    
-            console.log("Form Submitted !!")
-    
-            setStatus(prev=>(
-                {
-                    ...prev,
-                    success: true
-                }
-            ))
-            alert("Signed Up Successfully")
+/* mirrors the strength meter below — keep the two in step */
+const scorePassword = (password) => {
+  if (!password) return 0;
+  let score = 0;
+  if (password.length >= 8) score += 1;
+  if (password.length >= 12) score += 1;
+  if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score += 1;
+  if (/\d/.test(password) || /[^A-Za-z0-9]/.test(password)) score += 1;
+  return score;
+};
 
-            navigate("/homepage")
+const STRENGTH = [
+  { label: "Too short", bar: "w-1/4 bg-red-500", text: "text-red-600" },
+  { label: "Weak", bar: "w-2/4 bg-amber-500", text: "text-amber-600" },
+  { label: "Good", bar: "w-3/4 bg-blue-600", text: "text-blue-600" },
+  { label: "Strong", bar: "w-full bg-emerald-500", text: "text-emerald-600" },
+];
 
-            
-        }
-    
-        return (
-            <>
-            <form  onSubmit={handleSubmit} className="border rounded-2xl  p-6 flex flex-col justify-center items-center gap-4 max-w-lg m-auto shadow-xl">
+const validate = ({ name, age, email, password, confirmPassword }) => {
+  const errors = {};
 
-        <h1 className="text-center text-3xl p-2 ">Sign Up </h1>
-            <div className="flex flex-col gap-1 text-left">
+  if (!name.trim()) errors.name = "Tell us what to call you.";
+  else if (name.trim().length < 2) errors.name = "That name looks too short.";
 
-            <label htmlFor="name" className="text-sm text-gray-600">Name:</label>
-            <input type="text" id="name" onChange={handleChange} value={user.name}
-            className="border border-gray-200 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-600 "/>
+  if (!age) errors.age = "Enter your age.";
+  else if (Number(age) < 13)
+    errors.age = "You need to be at least 13 to use Civitas.";
+  else if (Number(age) > 120) errors.age = "Please enter a valid age.";
+
+  if (!email.trim()) errors.email = "We'll send report updates here.";
+  else if (!EMAIL_RE.test(email.trim()))
+    errors.email = "That doesn't look like a valid email address.";
+
+  if (!password) errors.password = "Choose a password.";
+  else if (password.length < 8)
+    errors.password = "Use at least 8 characters.";
+
+  if (!confirmPassword) errors.confirmPassword = "Re-enter your password.";
+  else if (confirmPassword !== password)
+    errors.confirmPassword = "Passwords don't match.";
+
+  return errors;
+};
+
+const SignUp = () => {
+  const [user, setUser] = useState({
+    name: "",
+    age: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState({ success: "", error: "" });
+  const [pending, setPending] = useState(false);
+
+  const navigate = useNavigate();
+  const timer = useRef(null);
+
+  /* don't navigate or set state after the page has gone away */
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setUser((prev) => ({ ...prev, [id]: value }));
+    /* clear this field's error as soon as the user starts fixing it */
+    setErrors((prev) => (prev[id] ? { ...prev, [id]: "" } : prev));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const found = validate(user);
+    setErrors(found);
+
+    if (Object.keys(found).length > 0) {
+      setStatus({ success: "", error: "Please fix the fields highlighted below." });
+      return;
+    }
+
+    setStatus({ success: "", error: "" });
+    setPending(true);
+
+    /* no auth backend yet — hold briefly so the result is readable */
+    timer.current = setTimeout(() => {
+      setPending(false);
+      setStatus({
+        success: "Account created. Welcome to Civitas!",
+        error: "",
+      });
+      timer.current = setTimeout(() => navigate("/"), 700);
+    }, 600);
+  };
+
+  const strength = user.password ? STRENGTH[scorePassword(user.password) - 1] : null;
+
+  return (
+    <AuthLayout
+      eyebrow="Get started"
+      title="Create your account"
+      subtitle="Free for every resident. Report what's broken and follow it all the way to fixed."
+      panelHeading="Join 24,000 residents fixing their city."
+      panelPoints={PANEL_POINTS}
+      panelQuote={PANEL_QUOTE}
+      footer={
+        <>
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className={`rounded-sm font-semibold text-blue-600 transition hover:text-blue-700 hover:underline ${focusRing}`}
+          >
+            Log in
+          </Link>
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit} noValidate className="mt-8 flex flex-col gap-5">
+        <FormStatus success={status.success} error={status.error} />
+
+        <div className="grid gap-5 sm:grid-cols-[1fr_7rem]">
+          <Field
+            id="name"
+            label="Full name"
+            value={user.name}
+            onChange={handleChange}
+            error={errors.name}
+            placeholder="Sameer Sharma"
+            autoComplete="name"
+          />
+          <Field
+            id="age"
+            label="Age"
+            type="number"
+            value={user.age}
+            onChange={handleChange}
+            error={errors.age}
+            placeholder="28"
+            inputMode="numeric"
+            min="13"
+            max="120"
+          />
+        </div>
+
+        <Field
+          id="email"
+          label="Email"
+          type="email"
+          value={user.email}
+          onChange={handleChange}
+          error={errors.email}
+          placeholder="you@example.com"
+          autoComplete="email"
+        />
+
+        <div>
+          <Field
+            id="password"
+            label="Password"
+            type="password"
+            value={user.password}
+            onChange={handleChange}
+            error={errors.password}
+            hint="At least 8 characters."
+            placeholder="••••••••"
+            autoComplete="new-password"
+          />
+
+          {strength && !errors.password && (
+            <div className="mt-2.5 flex items-center gap-3">
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className={`h-full rounded-full transition-all duration-300 ${strength.bar}`}
+                />
+              </div>
+              <span className={`text-xs font-semibold ${strength.text}`}>
+                {strength.label}
+              </span>
             </div>
+          )}
+        </div>
 
-             <div className="flex flex-col gap-1 text-left">
+        <Field
+          id="confirmPassword"
+          label="Confirm password"
+          type="password"
+          value={user.confirmPassword}
+          onChange={handleChange}
+          error={errors.confirmPassword}
+          placeholder="••••••••"
+          autoComplete="new-password"
+        />
 
-            <label htmlFor="age" className="text-sm text-gray-600">Age:</label>
-            <input type="number" id="age" onChange={handleChange} value={user.age}
-            className="border border-gray-200 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-600 "/>
-            </div>
-            
+        <SubmitButton pending={pending} pendingLabel="Creating account…">
+          Create account
+        </SubmitButton>
 
-          <div className="flex flex-col gap-1 text-left">
-
-            <label htmlFor="email" className="text-sm text-gray-600">Email:</label>
-            <input type="email" id="email" onChange={handleChange} value={user.email}
-            className="border border-gray-200 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-600"/>
-            </div>
-
-
-            <div className="flex flex-col gap-1 text-left">
-
-            <label htmlFor="password" className="text-sm text-gray-600">Password:</label>
-            <input type="password" id="password"  onChange={handleChange} value={user.password}
-            className="border border-gray-200 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-600"/>
-            </div>
-
-
-            <button type="submit" className="bg-blue-600 rounded-md m-2 hover:bg-blue-700 text-white p-3 "> Sign Up</button>
-
-        {(status.success)?
-        <p className="text-green-500">✓Logged In successfully</p>
-        :(status.error)&&<p className="text-red-500">⚠Error: {status.error}</p>
-        }
-        </form>
-            </>
-        )
-
-}
-
-
+        <p className="text-center text-xs leading-relaxed text-slate-500">
+          By creating an account you agree to keep reports factual and
+          respectful of your neighbours.
+        </p>
+      </form>
+    </AuthLayout>
+  );
+};
 
 export default SignUp;
