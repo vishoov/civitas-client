@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-
-/* ------------------------------------------------------------------ */
+import { useAuth } from "../Auth/AuthContext";
+ /* ------------------------------------------------------------------ */
 /*  Icons (stroke-based, 24px grid — same family as the landing page)   */
 /* ------------------------------------------------------------------ */
 
@@ -57,6 +57,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { userData } = useAuth();
 
   /* Escape closes the mobile panel */
   useEffect(() => {
@@ -136,12 +137,22 @@ const Navbar = () => {
 
           {/* ---- desktop actions ---- */}
           <div className="hidden items-center gap-5 lg:flex">
-            <Link
+            
+            {
+            (userData)?
+            (<Link
+              to="/admin/dashboard"
+              className="rounded-sm text-sm font-semibold text-slate-300 transition hover:text-white"
+              >
+                {userData.username}
+              </Link>):
+            (<Link
               to="/login"
               className={`rounded-sm text-sm font-semibold text-slate-300 transition hover:text-white ${focusRing}`}
             >
               Log in
-            </Link>
+            </Link>)
+}
             <Link
               to="/report"
               className={`group inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 ${focusRing}`}

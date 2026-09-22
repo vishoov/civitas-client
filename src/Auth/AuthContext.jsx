@@ -33,7 +33,7 @@ export const AuthProtected= ({children})=>{
                 return data
             }
             setUserData(data.user);
-
+            localStorage.setItem("user", JSON.stringify(data.user));
             return data;
 
         }
@@ -65,7 +65,8 @@ export const AuthProtected= ({children})=>{
                 return data;
             }
             setUserData(data.user);
-
+            console.log("User data after login: ", data.user);
+            localStorage.setItem("user", JSON.stringify(data.user));
             return data;
 
         }
@@ -82,6 +83,7 @@ export const AuthProtected= ({children})=>{
 }
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth(){
     let result= useContext(AuthContext);
     if(!result)

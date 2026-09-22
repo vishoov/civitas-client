@@ -10,19 +10,20 @@ import Footer from "./Components/Footer"
 
 import Home from "./pages/Home"
 import Protected from "./Components/Protected"
+import AdminHome from "./pages/AdminHome"
 const App = () => {
   return (
     <div>
 
+      <AuthProtected>
 
       <Navbar/>
 
-      <AuthProtected>
       <Routes>
 
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/login" element={<Login/>}/>
-
+        <Route path="/admin/dashboard" element={<AdminHome />} />
         <Route path="/report" element={<ReportPage/>}/>
         <Route path="/admin/reports" element={
           <Protected>
@@ -32,10 +33,10 @@ const App = () => {
         <Route path="/" element={<Home/>}/>
       </Routes>
 
-      </AuthProtected>
 
 
     <Footer />
+      </AuthProtected>
 
     </div>
   )
