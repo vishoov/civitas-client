@@ -84,7 +84,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const timer = useRef(null);
 
-  let { register, userData}= useAuth();
+  let { register }= useAuth();
 
   /* don't navigate or set state after the page has gone away */
   useEffect(() => () => clearTimeout(timer.current), []);
