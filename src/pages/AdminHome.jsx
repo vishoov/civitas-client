@@ -1,6 +1,7 @@
 import AdminDashboard from "../Components/adminDashboard";
 import Sidebar from "../Components/Sidebar"
 import { useState} from "react";
+import Profile from "./Profile";
 
 const AdminHome = () => {
 
@@ -19,6 +20,8 @@ const AdminHome = () => {
 
 
   {activeTab === "reports" ? <AdminDashboard /> : <h1>No Active Tab</h1>}
+
+  {activeTab === "profile" ? <Profile/> : <h1>No Active Tab</h1>}
 
 
     {/* current view  */}
