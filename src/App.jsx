@@ -9,6 +9,7 @@ import Footer from "./component/Footer"
 
 
 import Home from "./pages/Home"
+import Protected from "./Components/Protected"
 const App = () => {
   return (
     <div>
@@ -23,7 +24,11 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
 
         <Route path="/report" element={<ReportPage/>}/>
-        <Route path="/admin/reports" element={<AdminDashboard/>}/>
+        <Route path="/admin/reports" element={
+          <Protected>
+            <AdminDashboard/>
+          </Protected>
+          }/>
         <Route path="/" element={<Home/>}/>
       </Routes>
 

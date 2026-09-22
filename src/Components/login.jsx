@@ -6,6 +6,7 @@ import AuthLayout, {
   SubmitButton,
   focusRing,
 } from "./AuthLayout";
+import { useAuth } from "../Auth/AuthContext";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -31,7 +32,7 @@ const validate = ({ email, password }) => {
     errors.email = "That doesn't look like a valid email address.";
 
   if (!password) errors.password = "Enter your password.";
-
+  
   return errors;
 };
 
@@ -40,7 +41,8 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ success: "", error: "" });
   const [pending, setPending] = useState(false);
-
+  
+  let {login}= useAuth();
   const navigate = useNavigate();
   const timer = useRef(null);
 
@@ -54,7 +56,7 @@ const Login = () => {
     setErrors((prev) => (prev[id] ? { ...prev, [id]: "" } : prev));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
     const found = validate(user);
@@ -68,12 +70,33 @@ const Login = () => {
     setStatus({ success: "", error: "" });
     setPending(true);
 
+
+    let response= await login(user);
+
+    setPending(false)
+
+    if(!response.user){
+      setStatus(
+    {
+      success: "",
+      error: `${response.message}`
+    })
+    return;
+    }
+      setStatus({
+        success: "Account created. Welcome to Civitas!",
+        error: "",
+      });
+      navigate("/")
+
+    
+
     /* no auth backend yet — hold briefly so the result is readable */
-    timer.current = setTimeout(() => {
-      setPending(false);
-      setStatus({ success: "Logged in successfully. Taking you home…", error: "" });
-      timer.current = setTimeout(() => navigate("/"), 700);
-    }, 600);
+    // timer.current = setTimeout(() => {
+    //   setPending(false);
+    //   setStatus({ success: "Logged in successfully. Taking you home…", error: "" });
+    //   timer.current = setTimeout(() => navigate("/"), 700);
+    // }, 600);
   };
 
   return (
