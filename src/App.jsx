@@ -11,6 +11,8 @@ import Footer from "./Components/Footer"
 import Home from "./pages/Home"
 import Protected from "./Components/Protected"
 import AdminHome from "./pages/AdminHome"
+import { NotFound } from "./Components/NotFound"
+import { AllReports } from "./pages/AllReports"
 const App = () => {
   return (
     <div>
@@ -25,12 +27,17 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
         <Route path="/admin/dashboard" element={<AdminHome />} />
         <Route path="/report" element={<ReportPage/>}/>
+        <Route path='/reports' element={<AllReports />} />
         <Route path="/admin/reports" element={
           <Protected>
             <AdminDashboard/>
           </Protected>
           }/>
         <Route path="/" element={<Home/>}/>
+
+        <Route path="*" element={<NotFound />} />
+
+
       </Routes>
 
 

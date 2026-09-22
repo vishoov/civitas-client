@@ -39,7 +39,7 @@ const focusRing =
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   return (
-    <aside className="w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md lg:h-full lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
+    <aside className="w-full h-full border-b border-white/10 bg-[#000000] min-h-150 lg:h-full lg:w-64  lg:border-b-0 lg:border-r">
       <nav aria-label="Dashboard" className="px-4 py-5 lg:px-5 lg:py-6">
         <p className="mb-3 hidden px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 lg:block">
           Dashboard

@@ -45,7 +45,7 @@ const CloseIcon = (props) => (
 
 const NAV_LINKS = [
   { label: "Home", to: "/" },
-  { label: "Reports", section: "reports" },
+  { label: "Reports", to:"/reports" },
   { label: "How it works", section: "how-it-works" },
   { label: "About", section: "why-civitas" },
 ];

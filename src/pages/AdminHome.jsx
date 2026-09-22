@@ -7,8 +7,19 @@ const AdminHome = () => {
 
   const [activeTab, setActiveTab] = useState("profile");
 
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case "settings":
+        return <h1>Settings</h1>
+      case "reports":
+        return <AdminDashboard />
+      default:
+        return <Profile />
+    }
+  }
+
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col bg-slate-950 lg:flex-row">
+    <div className="flex flex-col bg-slate-950 lg:flex-row">
 
     {/* sidebar */}
     <Sidebar
@@ -16,16 +27,9 @@ const AdminHome = () => {
     setActiveTab={setActiveTab}
     />
    
-    {/* conditional rendering to show profile, reports, settings  */}
-
-
-  {activeTab === "reports" ? <AdminDashboard /> : <h1>No Active Tab</h1>}
-
-  {activeTab === "profile" ? <Profile/> : <h1>No Active Tab</h1>}
-
-
     {/* current view  */}
     <main className="flex-1 px-6 py-8 text-slate-200">
+      {renderActiveTab()}
     </main>
 
 

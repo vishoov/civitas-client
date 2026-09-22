@@ -4,7 +4,13 @@ import { createContext, useContext } from "react";
 let AuthContext= createContext();
 
 export const AuthProtected= ({children})=>{
-    let [userData, setUserData]= useState(null);
+    let [userData, setUserData]= useState(()=>{
+        return JSON.parse(localStorage.getItem("user")) || {}
+    });
+
+
+
+
     const register= async (state)=>{
 
         try{
