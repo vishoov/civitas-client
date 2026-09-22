@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth/AuthContext";
 import AuthLayout, {
   Field,
   FormStatus,
@@ -14,6 +15,7 @@ const PANEL_POINTS = [
   "Your ward and the right department are filled in for you automatically.",
   "Every report gets a public timeline — raised, acknowledged, assigned, resolved.",
 ];
+
 
 const PANEL_QUOTE = {
   quote:
@@ -82,6 +84,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const timer = useRef(null);
 
+  let { register, userData}= useAuth();
+
   /* don't navigate or set state after the page has gone away */
   useEffect(() => () => clearTimeout(timer.current), []);
 
@@ -92,7 +96,7 @@ const SignUp = () => {
     setErrors((prev) => (prev[id] ? { ...prev, [id]: "" } : prev));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const found = validate(user);
@@ -106,15 +110,31 @@ const SignUp = () => {
     setStatus({ success: "", error: "" });
     setPending(true);
 
-    /* no auth backend yet — hold briefly so the result is readable */
-    timer.current = setTimeout(() => {
-      setPending(false);
+    let response= await register(user);
+
+    setPending(false)
+
+    if(!response.user){
+      setStatus(
+    {
+      success: "",
+      error: `${response.message}`
+    })
+    return;
+    }
       setStatus({
         success: "Account created. Welcome to Civitas!",
         error: "",
       });
-      timer.current = setTimeout(() => navigate("/"), 700);
-    }, 600);
+      navigate("/")
+
+
+
+    /* no auth backend yet — hold briefly so the result is readable */
+    // timer.current = setTimeout(() => {
+    //   setPending(false);
+    //   timer.current = setTimeout(() => navigate("/"), 700);
+    // }, 600);
   };
 
   const strength = user.password ? STRENGTH[scorePassword(user.password) - 1] : null;

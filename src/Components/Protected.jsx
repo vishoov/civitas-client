@@ -3,10 +3,10 @@ import { useAuth } from "../Auth/AuthContext"
 
 
 const Protected= ()=>{
-    let isAuth= useAuth();
-    console.log(isAuth);
+    let { userData }= useAuth();
+    console.log(userData);
 
-    if(isAuth)
+    if(userData)
         return <Outlet/>
     else
        return <Navigate to={"/login"} replace/>
