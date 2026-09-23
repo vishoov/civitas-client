@@ -13,6 +13,7 @@ import Protected from "./Components/Protected"
 import AdminHome from "./pages/AdminHome"
 import { NotFound } from "./Components/NotFound"
 import { AllReports } from "./pages/AllReports"
+import Settings from "./Components/Settings";
 const App = () => {
   return (
     <div>
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/admin/dashboard" element={<AdminHome />} />
         <Route path="/report" element={<ReportPage/>}/>
         <Route path='/reports' element={<AllReports />} />
+        <Route path="/settings" element={<Settings/>}/>
         <Route path="/admin/reports" element={
           <Protected>
             <AdminDashboard/>
