@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { ReportCard } from "../Components/ReportCard";
+import Filters from "../Components/Filters";
 
 export const AllReports = () => {
 
 const [reports, setReports] = useState([]);
+const [status, setStatus]= useState("");
 const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -11,17 +13,36 @@ const [error, setError] = useState(null);
 
     async function fetchReports() {
       try {
-        const response = await fetch("http://localhost:8000/api/report-api/all", {
-          method: "GET"
-        });
+        let response;
 
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
+        if (status) {
+          response = await fetch("http://localhost:8000/api/report-api/reports/filter/1", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              pincode: "",
+              district: "",
+              state: "",
+              status: status
+            })
+          });
+        } else {
+          response = await fetch("http://localhost:8000/api/report-api/all", {
+            method: "GET"
+          });
         }
 
         const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data?.message ?? data?.error ?? `Request failed with status ${response.status}`);
+        }
+
         if (cancelled) return;
-        setReports(Array.isArray(data?.reports) ? data.reports : []);
+
+        const list = status ? data.filtered_report : data.reports;
+        setReports(Array.isArray(list) ? list : []);
         setError(null);
       } catch (err) {
         if (cancelled) return;
@@ -36,22 +57,27 @@ const [error, setError] = useState(null);
     return () => {
       cancelled = true;
     };
-  }, [])
+  }, [status])
 
 
 
   return (
+    <>
+    <Filters status={status} setStatus={setStatus} />
     <div className="grid min-h-screen grid-cols-1 gap-6 bg-slate-950 p-10 sm:grid-cols-2 lg:grid-cols-3">
 
     {error && (
       <p className="col-span-full text-sm text-rose-400">{error}</p>
     )}
 
-    {reports.map((report)=>{
+    {reports?.map((report)=>{
         return <ReportCard report={report} key={report._id ?? report.id} />
     })}
 
+        </div>
 
-    </div>
+
+
+    </>
   )
 }
