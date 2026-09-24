@@ -79,7 +79,7 @@ const PLATFORM_LINKS = [
 ];
 
 const RESOURCE_LINKS = [
-  { label: "Why Civitas", section: "why-civitas" },
+  { label: "Why StreetFixKaro", section: "why-streetfixkaro" },
   { label: "Help centre", to: "/" },
   { label: "Contact us", to: "/" },
   { label: "FAQs", to: "/" },
@@ -173,7 +173,7 @@ function Footer() {
                 <PinIcon className="h-5 w-5" />
               </span>
               <span className="text-xl font-bold tracking-tight text-white">
-                Civitas
+                StreetFixKaro
               </span>
             </Link>
 
@@ -227,7 +227,7 @@ function Footer() {
             <ul className="mt-5 flex flex-col gap-4 text-sm">
               <li>
                 <a
-                  href="mailto:support@civitas.com"
+                  href="mailto:support@streetfixkaro.com"
                   className={`group inline-flex items-start gap-3 rounded-sm ${focusRing}`}
                 >
                   <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition group-hover:border-white/25 group-hover:text-white">
@@ -238,7 +238,7 @@ function Footer() {
                       Email
                     </span>
                     <span className="text-slate-300 transition group-hover:text-white">
-                      support@civitas.com
+                      support@streetfixkaro.com
                     </span>
                   </span>
                 </a>
@@ -278,7 +278,7 @@ function Footer() {
 
         {/* ============================ BOTTOM BAR ======================= */}
         <div className="flex flex-col gap-4 border-t border-white/10 py-7 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} Civitas. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} StreetFixKaro. All rights reserved.</p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {LEGAL_LINKS.map((item) => (
               <li key={item.label}>

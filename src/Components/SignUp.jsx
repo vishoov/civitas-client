@@ -51,7 +51,7 @@ const validate = ({ name, age, email, password, confirmPassword }) => {
 
   if (!age) errors.age = "Enter your age.";
   else if (Number(age) < 13)
-    errors.age = "You need to be at least 13 to use Civitas.";
+    errors.age = "You need to be at least 13 to use StreetFixKaro.";
   else if (Number(age) > 120) errors.age = "Please enter a valid age.";
 
   if (!email.trim()) errors.email = "We'll send report updates here.";
@@ -123,7 +123,7 @@ const SignUp = () => {
     return;
     }
       setStatus({
-        success: "Account created. Welcome to Civitas!",
+        success: "Account created. Welcome to StreetFixKaro!",
         error: "",
       });
       navigate("/")

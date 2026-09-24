@@ -4,7 +4,30 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>civitas-client</title>
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- Fallback metadata: React (see src/Components/Seo.jsx) replaces these
+         per route once the app mounts. -->
+    <title>StreetFixKaro — Report civic issues and track them to resolution</title>
+    <meta
+      name="description"
+      content="StreetFixKaro turns a photo of a broken street into a tracked, public civic report — so potholes, broken lights and uncollected waste get seen, routed and resolved."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="author" content="StreetFixKaro" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "StreetFixKaro",
+        "url": "https://streetfixkaro.example.com",
+        "applicationCategory": "GovernmentApplication",
+        "operatingSystem": "Web",
+        "description": "StreetFixKaro turns a photo of a broken street into a tracked, public civic report — so potholes, broken lights and uncollected waste get seen, routed and resolved.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

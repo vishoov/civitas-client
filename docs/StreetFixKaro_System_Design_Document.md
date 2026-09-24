@@ -1,4 +1,4 @@
-# Civitas — System Design Document
+# StreetFixKaro — System Design Document
 
 **Project type:** Hackathon project (pre-revenue, future scaling potential)
 **Stack:** MERN (MongoDB, Express, React, Node.js)
@@ -32,7 +32,7 @@ India's administrative hierarchy should be treated as a **read-only reference da
 - `districts` — LGD district code, name, parent state code
 - `subdistricts` — LGD sub-district code, name, parent district code
 
-Every user-facing record (business, report, listing, complaint — whatever Civitas's core entity is) stores only a `districtCode` (or lowest known level) — never a free-text "state" or "city" field. This single decision prevents "Mumbai" / "mumbai" / "Bombay" style duplication and makes pan-India queries reliable.
+Every user-facing record (business, report, listing, complaint — whatever StreetFixKaro's core entity is) stores only a `districtCode` (or lowest known level) — never a free-text "state" or "city" field. This single decision prevents "Mumbai" / "mumbai" / "Bombay" style duplication and makes pan-India queries reliable.
 
 ---
 
@@ -82,4 +82,4 @@ Since there's no revenue yet but the project may scale later, avoid decisions th
 
 ## 6. Summary
 
-This design gives Civitas a demo-ready pan-India MERN architecture for the hackathon, while keeping the data foundation trustworthy and normalized enough to support real growth if the project moves beyond hackathon stage.
+This design gives StreetFixKaro a demo-ready pan-India MERN architecture for the hackathon, while keeping the data foundation trustworthy and normalized enough to support real growth if the project moves beyond hackathon stage.

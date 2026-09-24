@@ -4,7 +4,7 @@
 /*  Home page motion (prefixed so it stays scoped to the landing page)  */
 /* ------------------------------------------------------------------ */
 
-@keyframes civitas-float {
+@keyframes streetfixkaro-float {
   0%,
   100% {
     transform: translateY(0);
@@ -14,7 +14,7 @@
   }
 }
 
-@keyframes civitas-marquee {
+@keyframes streetfixkaro-marquee {
   from {
     transform: translateX(0);
   }
@@ -23,7 +23,7 @@
   }
 }
 
-@keyframes civitas-rise {
+@keyframes streetfixkaro-rise {
   from {
     opacity: 0;
     transform: translateY(18px);
@@ -34,27 +34,27 @@
   }
 }
 
-.civitas-float {
-  animation: civitas-float 6s ease-in-out infinite;
+.streetfixkaro-float {
+  animation: streetfixkaro-float 6s ease-in-out infinite;
 }
 
-.civitas-float-slow {
-  animation: civitas-float 9s ease-in-out infinite;
+.streetfixkaro-float-slow {
+  animation: streetfixkaro-float 9s ease-in-out infinite;
 }
 
-.civitas-marquee {
-  animation: civitas-marquee 32s linear infinite;
+.streetfixkaro-marquee {
+  animation: streetfixkaro-marquee 32s linear infinite;
 }
 
-.civitas-rise {
-  animation: civitas-rise 700ms ease-out both;
+.streetfixkaro-rise {
+  animation: streetfixkaro-rise 700ms ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .civitas-float,
-  .civitas-float-slow,
-  .civitas-marquee,
-  .civitas-rise {
+  .streetfixkaro-float,
+  .streetfixkaro-float-slow,
+  .streetfixkaro-marquee,
+  .streetfixkaro-rise {
     animation: none !important;
   }
 }

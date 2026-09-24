@@ -84,7 +84,7 @@ const Login = () => {
     return;
     }
       setStatus({
-        success: "Account created. Welcome to Civitas!",
+        success: "Account created. Welcome to StreetFixKaro!",
         error: "",
       });
       navigate("/")
@@ -102,14 +102,14 @@ const Login = () => {
   return (
     <AuthLayout
       eyebrow="Welcome back"
-      title="Log in to Civitas"
+      title="Log in to StreetFixKaro"
       subtitle="Track the issues you've raised and see what your neighbourhood is waiting on."
       panelHeading="Your street, still on the record."
       panelPoints={PANEL_POINTS}
       panelQuote={PANEL_QUOTE}
       footer={
         <>
-          New to Civitas?{" "}
+          New to StreetFixKaro?{" "}
           <Link
             to="/signup"
             className={`rounded-sm font-semibold text-blue-600 transition hover:text-blue-700 hover:underline ${focusRing}`}

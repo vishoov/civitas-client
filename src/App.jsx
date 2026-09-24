@@ -13,12 +13,14 @@ import Protected from "./Components/Protected"
 import AdminHome from "./pages/AdminHome"
 import { NotFound } from "./Components/NotFound"
 import { AllReports } from "./pages/AllReports"
+import Seo from "./Components/Seo"
 const App = () => {
   return (
     <div>
 
       <AuthProtected>
 
+      <Seo/>
       <Navbar/>
 
       <Routes>

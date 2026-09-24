@@ -1,4 +1,4 @@
-# Civitas — Frontend Handbook
+# StreetFixKaro — Frontend Handbook
 
 Implementation guidance for the React client. Covers stack choices, folder structure, routing, state, every page and component, and the reasoning behind each. Companion to the System Design Document, Feature Breakdown, and Schemas.
 
@@ -141,7 +141,7 @@ No `stateName`, no `districtName`, no `userName`, no `status`. All server-derive
 
 ### 4.8 Login / Signup
 **Reasoning:** Identity for attribution and admin gating; hackathon scope means simple (1.8).
-**Behavior:** on success store the JWT (`localStorage`, key `civitas_token`) and the decoded user in `AuthContext`; redirect to `?next=` or `/`. On 401 show one inline error — never reveal whether the email exists.
+**Behavior:** on success store the JWT (`localStorage`, key `streetfixkaro_token`) and the decoded user in `AuthContext`; redirect to `?next=` or `/`. On 401 show one inline error — never reveal whether the email exists.
 **Signup collects an optional home district** via the picker, matching `users.districtCode` (Schemas §4), and pre-fills the report form's location later.
 
 ---

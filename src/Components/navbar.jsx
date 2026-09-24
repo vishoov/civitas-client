@@ -47,7 +47,7 @@ const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "Reports", to:"/reports" },
   { label: "How it works", section: "how-it-works" },
-  { label: "About", section: "why-civitas" },
+  { label: "About", section: "why-streetfixkaro" },
 ];
 
 const focusRing =
@@ -101,7 +101,7 @@ const Navbar = () => {
               <PinIcon className="h-5 w-5" />
             </span>
             <span className="text-xl font-bold tracking-tight text-white">
-              Civitas
+              StreetFixKaro
             </span>
           </Link>
 

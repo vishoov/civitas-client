@@ -1,4 +1,4 @@
-# Civitas — Collection Schemas
+# StreetFixKaro — Collection Schemas
 
 Mongoose schema definitions for every collection described in the System Design Document and Feature Breakdown. Naming follows the one agreed convention: **camelCase fields, `*Code` for LGD references, `*Id` for ObjectId references** — never `district_id` or `distCode`.
 

@@ -109,19 +109,19 @@ const steps = [
     n: "01",
     title: "Spot it",
     body: "A pothole, a dead streetlight, an overflowing bin. If it affects the street, it belongs here.",
-    img: "https://picsum.photos/seed/civitas-step-spot/720/540",
+    img: "https://picsum.photos/seed/streetfixkaro-step-spot/720/540",
   },
   {
     n: "02",
     title: "Report it",
     body: "Photo, location and a line of context. Your ward and department are filled in for you.",
-    img: "https://picsum.photos/seed/civitas-step-report/720/540",
+    img: "https://picsum.photos/seed/streetfixkaro-step-report/720/540",
   },
   {
     n: "03",
     title: "Track it",
     body: "Follow the status, rally neighbours behind it, and see proof of the fix when it lands.",
-    img: "https://picsum.photos/seed/civitas-step-track/720/540",
+    img: "https://picsum.photos/seed/streetfixkaro-step-track/720/540",
   },
 ];
 
@@ -139,7 +139,7 @@ const reports = [
     status: "In progress",
     progress: 65,
     votes: 214,
-    img: "https://picsum.photos/seed/civitas-report-road/900/700",
+    img: "https://picsum.photos/seed/streetfixkaro-report-road/900/700",
   },
   {
     title: "Streetlights dark for eleven nights",
@@ -148,7 +148,7 @@ const reports = [
     status: "Acknowledged",
     progress: 30,
     votes: 158,
-    img: "https://picsum.photos/seed/civitas-report-light/900/700",
+    img: "https://picsum.photos/seed/streetfixkaro-report-light/900/700",
   },
   {
     title: "Garbage pile-up behind the fish market",
@@ -157,7 +157,7 @@ const reports = [
     status: "Resolved",
     progress: 100,
     votes: 392,
-    img: "https://picsum.photos/seed/civitas-report-waste/900/700",
+    img: "https://picsum.photos/seed/streetfixkaro-report-waste/900/700",
   },
 ];
 
@@ -228,7 +228,7 @@ function Home() {
         <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
           <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_1fr]">
             {/* ---- copy ---- */}
-            <div className="civitas-rise">
+            <div className="streetfixkaro-rise">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm font-medium text-blue-200 backdrop-blur">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -246,7 +246,7 @@ function Home() {
               </h1>
 
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
-                Civitas turns a photo of a broken street into a tracked,
+                StreetFixKaro turns a photo of a broken street into a tracked,
                 public, accountable civic request — and keeps every resident
                 in the loop until it&apos;s actually fixed.
               </p>
@@ -287,7 +287,7 @@ function Home() {
 
             {/* ---- image collage ---- */}
             <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-              <div className="civitas-float-slow overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/50">
+              <div className="streetfixkaro-float-slow overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/50">
                 <img
                   src={HERO_IMG}
                   alt="A resident documenting a damaged city street"
@@ -297,7 +297,7 @@ function Home() {
               </div>
 
               {/* floating status card */}
-              <div className="civitas-float absolute -bottom-6 -left-4 w-64 rounded-2xl border border-white/10 bg-slate-900/90 p-4 shadow-xl shadow-black/40 backdrop-blur sm:-left-10">
+              <div className="streetfixkaro-float absolute -bottom-6 -left-4 w-64 rounded-2xl border border-white/10 bg-slate-900/90 p-4 shadow-xl shadow-black/40 backdrop-blur sm:-left-10">
                 <div className="flex items-center gap-2 text-emerald-400">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15">
                     <CheckIcon className="h-4 w-4" />
@@ -313,7 +313,7 @@ function Home() {
               </div>
 
               {/* floating thumbnail */}
-              <div className="civitas-float absolute -top-6 -right-3 hidden w-40 overflow-hidden rounded-2xl border border-white/10 shadow-xl shadow-black/40 sm:block">
+              <div className="streetfixkaro-float absolute -top-6 -right-3 hidden w-40 overflow-hidden rounded-2xl border border-white/10 shadow-xl shadow-black/40 sm:block">
                 <img
                   src={HERO_IMG_ALT}
                   alt=""
@@ -350,7 +350,7 @@ function Home() {
           Working alongside municipal bodies
         </p>
         <div className="group relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-          <div className="civitas-marquee flex w-max gap-12 group-hover:[animation-play-state:paused]">
+          <div className="streetfixkaro-marquee flex w-max gap-12 group-hover:[animation-play-state:paused]">
             {[...partners, ...partners].map((p, i) => (
               <span
                 key={`${p}-${i}`}
@@ -364,16 +364,16 @@ function Home() {
       </section>
 
       {/* ============================ FEATURES ========================= */}
-      <section id="why-civitas" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+      <section id="why-streetfixkaro" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
         <div className="max-w-2xl">
           <span className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">
-            Why Civitas
+            Why StreetFixKaro
           </span>
           <h2 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Built for the people who actually live here
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-slate-600">
-            Complaint registers go into drawers. Civitas puts the same
+            Complaint registers go into drawers. StreetFixKaro puts the same
             information in front of the ward, the department and the street —
             at the same time.
           </p>
@@ -636,7 +636,7 @@ function Home() {
             The street outside your door is worth five minutes
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-slate-300">
-            Join Civitas, report what&apos;s broken, and follow it all the way
+            Join StreetFixKaro, report what&apos;s broken, and follow it all the way
             to fixed.
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">

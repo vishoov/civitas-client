@@ -1,4 +1,4 @@
-# Civitas Client — Checkpoint List
+# StreetFixKaro Client — Checkpoint List
 
 Where the project stands: the UI shell is built (landing page, login/signup, report detail,
 admin verification queue, navbar, footer) with all data hardcoded and no backend.
@@ -30,7 +30,7 @@ Everything renders. This list is what stands between "renders" and "runs smoothl
 - [ ] **Placeholder footer links navigate home.** "Help centre", "Contact us", "FAQs" and all three
       legal links are `<Link to="/">` — they silently bounce the user to the landing page.
       Make them inert or point them somewhere real.
-- [ ] **Page title still says `civitas-client`.** `index.html:7`.
+- [ ] **Page title still says `streetfixkaro-client`.** `index.html:7`.
 - [ ] **Report page.** `src/component/reportPage.jsx` — `<img>` has no `alt` (line 66), and the card is
       `mt-40` + fixed `w-100`, so it's off-centre and not responsive.
 - [ ] **Status vocabulary disagrees across screens.** Home shows "In progress / Acknowledged / Resolved";

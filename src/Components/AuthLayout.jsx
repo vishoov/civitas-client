@@ -323,7 +323,7 @@ const AuthLayout = ({
         className="pointer-events-none absolute -right-28 bottom-0 h-[28rem] w-[28rem] rounded-full bg-violet-600/20 blur-3xl"
       />
 
-      <div className="civitas-rise relative flex flex-1 flex-col justify-center px-12 py-16 xl:px-16">
+      <div className="streetfixkaro-rise relative flex flex-1 flex-col justify-center px-12 py-16 xl:px-16">
         <h2 className="max-w-md text-4xl font-bold leading-[1.1] tracking-tight xl:text-5xl">
           {panelHeading}
         </h2>
@@ -365,7 +365,7 @@ const AuthLayout = ({
 
     {/* ---------------------- form column ---------------------- */}
     <section className="flex items-center justify-center bg-white px-6 py-14 sm:px-10 lg:py-20">
-      <div className="civitas-rise w-full max-w-md">
+      <div className="streetfixkaro-rise w-full max-w-md">
         {/* brand mark — carries the identity on mobile, where the panel is hidden */}
         <Link
           to="/"
@@ -375,7 +375,7 @@ const AuthLayout = ({
             <PinIcon className="h-5 w-5" />
           </span>
           <span className="text-xl font-bold tracking-tight text-slate-900">
-            Civitas
+            StreetFixKaro
           </span>
         </Link>
 

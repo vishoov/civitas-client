@@ -1,4 +1,4 @@
-# Civitas — Frontend, Backend & Database Features
+# StreetFixKaro — Frontend, Backend & Database Features
 
 A feature-by-feature breakdown covering what to build, why it's needed, and how it's used. Organized by layer (Frontend, Backend, Database) to match the MERN stack split across the 5-person team.
 

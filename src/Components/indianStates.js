@@ -1,4 +1,4 @@
-/* States and union territories Civitas currently accepts reports for. */
+/* States and union territories StreetFixKaro currently accepts reports for. */
 export const ActiveStates = [
   "Andhra Pradesh",
   "Arunachal Pradesh",
