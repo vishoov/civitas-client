@@ -2,35 +2,35 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Settings.css';
 
-const Settings = ({userId}) => {
+const Settings = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleDeactivate = async ()=> {
-        try{
-            setLoading(true);
-            const response = await fetch(`http://localhost:8000/api/users/${userId}`,{
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: "include",
-                body: JSON.stringify({isActive: false})
-            });
-
+   const handleDeactivate = async () => {
+    try {
+        setLoading(true);
+            const response = await fetch(
+            "http://localhost:8000/api/users/deactivate",
+                {
+                    method: "PATCH",
+                    credentials: "include",
+                }
+            );
             const data = await response.json();
-            if(!response.ok){
-                throw new Error(data.message || "Failed to deactivate account");
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Failed to deactivate account"
+                );
             }
             console.log("Account deactivated successfully");
-            navigate('/login');
-        }catch(err){
-            console.error(err);
-            alert(err.message);
-        }finally{
-            setLoading(false);
-        }
-    }
+            navigate("/login");
+            } catch (err) {
+                console.error(err);
+                alert(err.message);
+            } finally {
+                setLoading(false);
+            }
+    };
 
     const handleLogout = async () => {
         try {
