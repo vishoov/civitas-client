@@ -54,12 +54,55 @@ const EyeOffIcon = (props) => (
   </svg>
 );
 
+const ChevronIcon = (props) => (
+  <svg {...iconBase} {...props}>
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
+
 export const focusRing =
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400";
 
 /* ------------------------------------------------------------------ */
 /*  Field — label + input + inline error, wired for screen readers      */
 /* ------------------------------------------------------------------ */
+
+/* shared input/select/textarea chrome, so every control reads the same */
+const controlClasses = (error, extra = "") =>
+  `w-full rounded-xl border bg-white px-4 py-3 text-[15px] text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:outline-none focus:ring-2 ${extra} ${
+    error
+      ? "border-red-300 focus:border-red-400 focus:ring-red-500/30"
+      : "border-slate-200 hover:border-slate-300 focus:border-blue-500 focus:ring-blue-600/25"
+  }`;
+
+const FieldShell = ({ id, label, error, hint, children }) => (
+  <div className="flex flex-col gap-1.5">
+    <label htmlFor={id} className="text-sm font-medium text-slate-700">
+      {label}
+    </label>
+
+    {children}
+
+    {error ? (
+      <p
+        id={`${id}-error`}
+        className="flex items-center gap-1.5 text-sm text-red-600"
+      >
+        <AlertIcon className="h-4 w-4 shrink-0" />
+        {error}
+      </p>
+    ) : (
+      hint && (
+        <p id={`${id}-hint`} className="text-sm text-slate-500">
+          {hint}
+        </p>
+      )
+    )}
+  </div>
+);
+
+const describedByFor = (id, error, hint) =>
+  error ? `${id}-error` : hint ? `${id}-hint` : undefined;
 
 export const Field = ({
   id,
@@ -77,14 +120,9 @@ export const Field = ({
 }) => {
   const [revealed, setRevealed] = useState(false);
   const isPassword = type === "password";
-  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-medium text-slate-700">
-        {label}
-      </label>
-
+    <FieldShell id={id} label={label} error={error} hint={hint}>
       <div className="relative">
         <input
           id={id}
@@ -97,14 +135,8 @@ export const Field = ({
           min={min}
           max={max}
           aria-invalid={error ? "true" : undefined}
-          aria-describedby={describedBy}
-          className={`w-full rounded-xl border bg-white px-4 py-3 text-[15px] text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
-            isPassword ? "pr-12" : ""
-          } ${
-            error
-              ? "border-red-300 focus:border-red-400 focus:ring-red-500/30"
-              : "border-slate-200 hover:border-slate-300 focus:border-blue-500 focus:ring-blue-600/25"
-          }`}
+          aria-describedby={describedByFor(id, error, hint)}
+          className={controlClasses(error, isPassword ? "pr-12" : "")}
         />
 
         {isPassword && (
@@ -122,25 +154,81 @@ export const Field = ({
           </button>
         )}
       </div>
-
-      {error ? (
-        <p
-          id={`${id}-error`}
-          className="flex items-center gap-1.5 text-sm text-red-600"
-        >
-          <AlertIcon className="h-4 w-4 shrink-0" />
-          {error}
-        </p>
-      ) : (
-        hint && (
-          <p id={`${id}-hint`} className="text-sm text-slate-500">
-            {hint}
-          </p>
-        )
-      )}
-    </div>
+    </FieldShell>
   );
 };
+
+/* ------------------------------------------------------------------ */
+/*  Textarea — Field's sibling for longer answers                       */
+/* ------------------------------------------------------------------ */
+
+export const Textarea = ({
+  id,
+  label,
+  value,
+  onChange,
+  error,
+  hint,
+  placeholder,
+  rows = 5,
+  maxLength,
+}) => (
+  <FieldShell id={id} label={label} error={error} hint={hint}>
+    <textarea
+      id={id}
+      rows={rows}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      maxLength={maxLength}
+      aria-invalid={error ? "true" : undefined}
+      aria-describedby={describedByFor(id, error, hint)}
+      className={controlClasses(error, "resize-y leading-relaxed")}
+    />
+  </FieldShell>
+);
+
+/* ------------------------------------------------------------------ */
+/*  Select — same chrome as Field, with a custom chevron                */
+/* ------------------------------------------------------------------ */
+
+export const Select = ({
+  id,
+  label,
+  value,
+  onChange,
+  error,
+  hint,
+  placeholder = "Select an option",
+  options = [],
+}) => (
+  <FieldShell id={id} label={label} error={error} hint={hint}>
+    <div className="relative">
+      <select
+        id={id}
+        value={value}
+        onChange={onChange}
+        aria-invalid={error ? "true" : undefined}
+        aria-describedby={describedByFor(id, error, hint)}
+        className={controlClasses(
+          error,
+          `appearance-none pr-11 ${value ? "" : "text-slate-400"}`
+        )}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((option) => (
+          <option key={option} value={option} className="text-slate-900">
+            {option}
+          </option>
+        ))}
+      </select>
+      <ChevronIcon
+        aria-hidden="true"
+        className="pointer-events-none absolute right-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+      />
+    </div>
+  </FieldShell>
+);
 
 /* ------------------------------------------------------------------ */
 /*  SubmitButton — carries its own pending state                        */

@@ -6,6 +6,7 @@ export const AllReports = () => {
 
 const [reports, setReports] = useState([]);
 const [status, setStatus]= useState("");
+const [state, setState] = useState("");
 const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -14,8 +15,9 @@ const [error, setError] = useState(null);
     async function fetchReports() {
       try {
         let response;
+        const isFiltered = status !== "" || state !== "";
 
-        if (status) {
+        if (isFiltered) {
           response = await fetch("http://localhost:8000/api/report-api/reports/filter/1", {
             method: "POST",
             credentials: "include",
@@ -23,8 +25,8 @@ const [error, setError] = useState(null);
             body: JSON.stringify({
               pincode: "",
               district: "",
-              state: "",
-              status: status
+              state: state || "",
+              status: status || ""
             })
           });
         } else {
@@ -41,9 +43,10 @@ const [error, setError] = useState(null);
 
         if (cancelled) return;
 
-        const list = status ? data.filtered_report : data.reports;
+        const list = isFiltered ? data.filtered_report : data.reports;
         setReports(Array.isArray(list) ? list : []);
         setError(null);
+        console.log(reports)
       } catch (err) {
         if (cancelled) return;
         console.error("Failed to fetch reports", err);
@@ -57,13 +60,18 @@ const [error, setError] = useState(null);
     return () => {
       cancelled = true;
     };
-  }, [status])
+  }, [status, state])
 
 
 
   return (
     <>
-    <Filters status={status} setStatus={setStatus} />
+    <Filters 
+    status={status} 
+    setStatus={setStatus}
+    state={state}
+    setState={setState}
+    />
     <div className="grid min-h-screen grid-cols-1 gap-6 bg-slate-950 p-10 sm:grid-cols-2 lg:grid-cols-3">
 
     {error && (

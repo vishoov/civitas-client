@@ -2,6 +2,7 @@ import AdminDashboard from "../Components/adminDashboard";
 import Sidebar from "../Components/Sidebar"
 import { useState} from "react";
 import Profile from "./Profile";
+import Settings from "../Components/Settings";
 
 const AdminHome = () => {
 
@@ -10,7 +11,7 @@ const AdminHome = () => {
   const renderActiveTab = () => {
     switch (activeTab) {
       case "settings":
-        return <h1>Settings</h1>
+        return <Settings />
       case "reports":
         return <AdminDashboard />
       default:

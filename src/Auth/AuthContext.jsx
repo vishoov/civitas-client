@@ -73,6 +73,7 @@ export const AuthProtected= ({children})=>{
             setUserData(data.user);
             console.log("User data after login: ", data.user);
             localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", data.token)
             return data;
 
         }
