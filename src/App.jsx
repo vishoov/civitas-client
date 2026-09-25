@@ -14,6 +14,7 @@ import AdminHome from "./pages/AdminHome"
 import { NotFound } from "./Components/NotFound"
 import { AllReports } from "./pages/AllReports"
 import Seo from "./Components/Seo"
+import SingleReport from "./pages/SingleReport"
 const App = () => {
   return (
     <div>
@@ -26,6 +27,8 @@ const App = () => {
       <Routes>
 
         <Route path="/signup" element={<SignUp />}/>
+        <Route path="/single-report/:id" element={<SingleReport />}/> 
+        {/* add id later */}
         <Route path="/login" element={<Login/>}/>
         <Route path="/admin/dashboard" element={<AdminHome />} />
         <Route path="/report" element={<ReportPage/>}/>
