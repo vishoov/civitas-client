@@ -25,17 +25,17 @@ const SingleReport= ()=>{
 
     return (
         <>
-        <div className="flex justify-center">
+        <div className="flex justify-center bg-[#0b0d19]">
             {
-                reportData? <div className="w-[60%] flex flex-col justify-center items-center gap-4 p-4 m-6 hover:bg-[#0b0d31] border-2 rounded-3xl bg-[#0b0d19] text-white">
-                    <p className="text-2xl">{reportData.title}</p>
+                reportData? <div className="w-[60%] flex flex-col justify-center items-center gap-4 p-4 m-6 hover:bg-[#0b0d45] border-2 rounded-3xl bg-[#0b0d31] text-white">
+                    <h1 className="text-2xl">{reportData.title}</h1>
                     <div className="flex justify-around gap-4">
                     <p>{reportData.state}</p>
                     <p>{reportData.district}</p>
                     <p>{reportData.pincode}</p>
                     </div>
                     <p>Descirption: {reportData.description}</p>
-                    <p className="bg-amber-300 border-2 rounded-2xl p-1.5">{reportData.status}</p>
+                    <h3 className="bg-amber-300 border-2 text-xl rounded-2xl p-1.5">{reportData.status}</h3>
 
                 </div>
                 : <h1>Loading..</h1>
