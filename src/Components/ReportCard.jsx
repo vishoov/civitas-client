@@ -8,7 +8,7 @@ const statusStyles = {
 };
 
 export const ReportCard = ({ report }) => {
-  const { title, status, state, pincode, district, description } = report;
+  const { title, status, state, pincode, district, description, photoUrl } = report;
 
   const badge =
     statusStyles[String(status ?? "").toLowerCase()] ??
@@ -35,6 +35,15 @@ export const ReportCard = ({ report }) => {
       <p className="relative text-sm leading-relaxed text-slate-400 line-clamp-3">
         {description}
       </p>
+
+      {photoUrl!==null &&
+      
+      <img 
+        src={photoUrl}
+        alt={title}
+        loading="lazy"
+        />
+      }
 
       <div className="relative mt-auto flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-slate-800 pt-4 text-xs text-slate-500">
         <svg

@@ -81,7 +81,13 @@ export const AuthProtected= ({children})=>{
             console.log(err.message);
         }
     }
-    let value= {register, userData, login};
+    const clearSession= ()=>{
+        setUserData({});
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+    }
+
+    let value= {register, userData, login, clearSession};
     return (
         <AuthContext.Provider value= {value}>
             {children}

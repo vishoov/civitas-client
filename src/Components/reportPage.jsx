@@ -33,6 +33,7 @@ const EMPTY_REPORT = {
   pincode: "",
   district: "",
   state: "",
+  image:null
 };
 
 const validate = ({ title, description, pincode, district, state }) => {
@@ -64,6 +65,13 @@ const ReportPage = () => {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ success: "", error: "" });
   const [pending, setPending] = useState(false);
+  const [image, setImage] = useState(null);
+
+
+  const handleImage = (e)=>{
+    setImage(e.target.files[0]);
+  }
+
 
   const navigate = useNavigate();
   const timer = useRef(null);
@@ -94,14 +102,25 @@ const ReportPage = () => {
 
     const localtoken = localStorage.getItem("token");
 
+
+    const formData = new FormData();
+
+    formData.append("title", reportData.title);
+    formData.append("description", reportData.description);
+    formData.append("pincode", reportData.pincode);
+    formData.append("district", reportData.district);
+    formData.append("state", reportData.state);
+    if (image) formData.append("image", image);
+
+    
     try {
       const response = await fetch(
         "http://localhost:8000/api/report-api/reports",
         {
           method: "POST",
-          body: JSON.stringify(reportData),
+          body: formData,
+          /* no Content-Type — the browser adds it with the multipart boundary */
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${localtoken}`,
           },
           credentials: "include",
@@ -120,8 +139,8 @@ const ReportPage = () => {
 
       setPending(false);
       setReportData(EMPTY_REPORT);
+      setImage(null);
       setStatus({ success: "Report filed. Thanks for speaking up!", error: "" });
-
       // timer.current = setTimeout(() => navigate("/reports"), 900);
     } catch (err) {
       setPending(false);
@@ -189,6 +208,26 @@ const ReportPage = () => {
             inputMode="numeric"
             autoComplete="postal-code"
           />
+
+          <div className="flex flex-col gap-1.5">
+            <label
+              htmlFor="image"
+              className="text-sm font-medium text-slate-700"
+            >
+              Photo <span className="font-normal text-slate-400">(optional)</span>
+            </label>
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImage}
+              aria-describedby="image-hint"
+              className={`w-full cursor-pointer rounded-xl border border-slate-200 bg-white text-[15px] text-slate-600 shadow-sm transition hover:border-slate-300 file:mr-4 file:cursor-pointer file:rounded-l-xl file:border-0 file:bg-slate-50 file:px-4 file:py-3 file:text-sm file:font-medium file:text-slate-700 file:transition hover:file:bg-slate-100 ${focusRing}`}
+            />
+            <p id="image-hint" className="text-sm text-slate-500">
+              {image ? image.name : "A photo helps the ward see the issue."}
+            </p>
+          </div>
 
           <Field
             id="district"
